@@ -1,6 +1,6 @@
 const parrafos = document.querySelectorAll(".parrafo");
 const seccion = document.querySelectorAll(".seccion");
-const papelera = document.querySelectorAll(".seccion_papelera");
+const papelera = document.querySelector(".seccion_papelera");
 
 parrafos.forEach((item) => {
   item.addEventListener("dragstart", (event) => {
@@ -28,14 +28,12 @@ seccion.forEach((seccion) => {
   });
 });
 
-papelera.forEach((item) => {
-  item.addEventListener("dragover", (event) => {
-    event.preventDefault();
-    event.dataTransfer.dropEffect = "move";
-  });
-  item.addEventListener("drop", (event) => {
-    const id_parrafo = event.dataTransfer.getData("id");
-    const parrafo = document.getElementById(id_parrafo);
-    papelera.appendChild(parrafo);
-  });
+papelera.addEventListener("dragover", (event) => {
+  event.preventDefault();
+  event.dataTransfer.dropEffect = "copy";
+});
+
+papelera.addEventListener("drop", (event) => {
+  const id_parrafo = event.dataTransfer.getData("id");
+  document.getElementById(id_parrafo).remove();
 });
